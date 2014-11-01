@@ -18,12 +18,13 @@
 
 
 var reTiles = 16;
-var rePairs;
+var rePairs = 8;
 var attempts = 0;
 var matches = 0;
 var turnTile = [];
 var saveImg = [];
 var running = false;
+
 
 var tiles = [];
 var idx;
@@ -78,59 +79,38 @@ $(document).ready(function() {
 		window.setInterval(function() {
 			$('#matches-id').text(matches);
 			$('#hit-markers').text(attempts);
+			$('#reMain-id').text(rePairs);
 			var elapsedSeconds = (Date.now() - startTime) / 1000;
 			elapsedSeconds = Math.floor(elapsedSeconds);
 			$('#elapsed-seconds').text(elapsedSeconds + ' seconds');
 		}, 1000);
 
-		//game mechanics go
-		//gobal: matches, remaining. keep track. turn logic. 
-		//tilenum
 		$('#game-board img').click(function() {
-			//console.log(this.alt);
-			//running = true;
 			if (running) {
-				//running = true;
 				return;
 			}
-
-				
 				var foundMatch;
-
-	
 				var clickedImg = $(this);
 				var tile = clickedImg.data('tile');
-		
-				
-				console.log(tile.flipped);
+
 				if (!tile.flipped) {
-					console.log(tile.flipped);
 					turnTile.push(tile);
 					saveImg.push(clickedImg);
 					flipTile(tile, clickedImg);
-					
-					console.log(tile);
 				}
 
 				if (turnTile.length === 2) {
 					running = true;
 					console.log("two have been flipped!");
-					/*
-					if (running) {
-						running = false;
-						return false;
-					}
-					running = true;*/
 							
 					if (turnTile[0].tileNum === turnTile[1].tileNum) {
 						turnTile[0].matched = true;
 						turnTile[1].matched = true;
 						matches++;
-						rePairs -= 2;
+						rePairs--;
+						running = false;
 					} else {
-						//setTimeout(function(){flipTile(turnTile[1], saveImg[1])}, 3000);
-						//setTimeout(function(){flipTile(turnTile[0], saveImg[0])}, 3000);
-						//I get the error 'img is undefined' when img is passed into the function. Does not happen with normal calls. 
+						attempts++;
 						console.log(saveImg[0]);
 						console.log(saveImg[1]);
 						var oldTile = turnTile[0];
@@ -138,63 +118,20 @@ $(document).ready(function() {
 						var newTile = turnTile[1];
 						var newImg = saveImg[1];
 
-						//if(!running) {
-
-				//			if (turnTile.length === 2) {
-				//				running = true;
-				//			}
-							
-							window.setTimeout(function() {
-   							 flipTile(oldTile, oldImg);
-   							 flipTile(newTile, newImg);
+						window.setTimeout(function() {
+   							flipTile(oldTile, oldImg);
+   							flipTile(newTile, newImg);
     						running = false;
 							}, 1000);
-							//running = false;
-
-							
-							//running = true;
-						//}
-
+						}
 						
-						
-						//window.clearTimeout(timeoutVar);
-						//window.clearTimeout(timeoutVar2);
-						setTimeout(function(){flipTile(turnTile[0], saveImg[0])}, 3000);
-						setTimeout(function(){flipTile(turnTile[1], saveImg[1])}, 3000);
-						//setTimeout(function(){newFunction(turnTile[0], saveImg[0], turnTile[1], saveImg[1])});
-						//flipTile(turnTile[0], saveImg[0]);
-						//flipTile(turnTile[1], saveImg[1]);
-							
-
-					}
-			turnTile.splice(0,1);
-			turnTile.splice(0,1);
-			saveImg.splice(0,1);
-			saveImg.splice(0,1);
-			
+						turnTile.splice(0,1);
+						turnTile.splice(0,1);
+						saveImg.splice(0,1);
+						saveImg.splice(0,1);
 
 				}
-		
 
-			
-
-			/*
-			if (!tile.flipped) {
-				flipTile(tile, clickedImg);
-				turnTile.push(tile);
-				for (var i = 0; i < tiles.length; i++) {
-					if (tile.tileNum == tiles[i].tileNum && !tiles[i].tileNum) {
-						tile.matched = true;
-						tiles[i].matched = true;
-						matches++;
-						remaining -= 2;
-					}
-				}
-			}
-			*///
-			//running = false;
-
-			//running = false;
 		});
 	});//start game button click
 }); // document ready function
