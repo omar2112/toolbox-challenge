@@ -144,9 +144,11 @@ $(document).ready(function() {
 				//				running = true;
 				//			}
 							
-							setTimeout(function(){flipTile(oldTile, oldImg)}, 1000);
-							setTimeout(function(){flipTile(newTile, newImg)}, 1000);
-
+							window.setTimeout(function() {
+   							 flipTile(oldTile, oldImg);
+   							 flipTile(newTile, newImg);
+    						running = false;
+							}, 1000);
 							//running = false;
 
 							
@@ -157,8 +159,8 @@ $(document).ready(function() {
 						
 						//window.clearTimeout(timeoutVar);
 						//window.clearTimeout(timeoutVar2);
-						//setTimeout(function(){flipTile(turnTile[0], saveImg[0])}, 3000);
-						//setTimeout(function(){flipTile(turnTile[1], saveImg[1])}, 3000);
+						setTimeout(function(){flipTile(turnTile[0], saveImg[0])}, 3000);
+						setTimeout(function(){flipTile(turnTile[1], saveImg[1])}, 3000);
 						//setTimeout(function(){newFunction(turnTile[0], saveImg[0], turnTile[1], saveImg[1])});
 						//flipTile(turnTile[0], saveImg[0]);
 						//flipTile(turnTile[1], saveImg[1]);
@@ -192,7 +194,7 @@ $(document).ready(function() {
 			*///
 			//running = false;
 
-			running = false;
+			//running = false;
 		});
 	});//start game button click
 }); // document ready function
