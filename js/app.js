@@ -28,6 +28,7 @@ var streak = 0;
 
 
 var tiles = [];
+/*
 var idx;
 for(idx = 1; idx <= 32; idx++) {
 	tiles.push({
@@ -37,14 +38,39 @@ for(idx = 1; idx <= 32; idx++) {
 		matched: false
 	});
 }//for each tile.
+*/
+//console.log(tiles);
 
-console.log(tiles);
+function initialize() {
+	reTiles = 16;
+	rePairs = 8;
+	attempts = 0;
+	matches = 0;
+	turnTile = [];
+	saveImg = [];
+	running = false;
+	streak = 0;
+
+	tiles = [];
+	var idx;
+	for(idx = 1; idx <= 32; idx++) {
+		tiles.push({
+			tileNum: idx,
+			src: 'img/tile' + idx + '.jpg',
+			flipped: false,
+			matched: false
+		});
+	}//for each tile.
+
+}
+
 
 //when document is ready...
 $(document).ready(function() {
 	//catch click event of start game button
 	$('#start-game').click(function() {
 		console.log('start game button clicked!');
+		initialize();
 
 		tiles = _.shuffle(tiles);
 		var selectedTiles = tiles.slice(0,8);
@@ -110,7 +136,7 @@ $(document).ready(function() {
 						turnTile[1].matched = true;
 						matches++;
 						rePairs--;
-						if (streak === 1) {
+						if (streak === 3) {
 							var tripleSound = document.getElementById('triple-sound');
 							tripleSound.play();
 							//var womboSound = document.getElementById('wombo-sound');
@@ -140,11 +166,19 @@ $(document).ready(function() {
 						turnTile.splice(0,1);
 						saveImg.splice(0,1);
 						saveImg.splice(0,1);
+						if (matches === 8) {
+							var womboSound = document.getElementById('wombo-sound');
+							womboSound.play();
+							alert('You won!!!11!2! asdfasdfaslkdfj0lkasjdflkajsdf');
+							
+						}
 
 				}
 
 		});
 	});//start game button click
+
+
 }); // document ready function
 
 function flipTile(tile, img) {
