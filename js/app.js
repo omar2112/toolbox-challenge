@@ -24,6 +24,7 @@ var matches = 0;
 var turnTile = [];
 var saveImg = [];
 var running = false;
+var streak = 0;
 
 
 var tiles = [];
@@ -104,12 +105,22 @@ $(document).ready(function() {
 					console.log("two have been flipped!");
 							
 					if (turnTile[0].tileNum === turnTile[1].tileNum) {
+						streak++;
 						turnTile[0].matched = true;
 						turnTile[1].matched = true;
 						matches++;
 						rePairs--;
+						if (streak === 1) {
+							var tripleSound = document.getElementById('triple-sound');
+							tripleSound.play();
+							//var womboSound = document.getElementById('wombo-sound');
+							//womboSound.play();
+						}
 						running = false;
 					} else {
+						streak = 0;
+						var hitSound = document.getElementById('hitmarker-sound');
+						hitSound.play();
 						attempts++;
 						console.log(saveImg[0]);
 						console.log(saveImg[1]);
