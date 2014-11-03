@@ -7,12 +7,9 @@
 //4) Kimmy j : QUAAAAD!
 //5) Was it 6? I would have cried if it was 6. 
 //6) Some crying one.
-//7) 
 
-//When you win: wombo combo. Oh oh OH OH!! Where you at! Oh my god!
 
-//app.js: our main javascript file for this app
-
+//7) delete these later. 
 
 "use strict";
 
@@ -28,19 +25,9 @@ var streak = 0;
 
 
 var tiles = [];
-/*
-var idx;
-for(idx = 1; idx <= 32; idx++) {
-	tiles.push({
-		tileNum: idx,
-		src: 'img/tile' + idx + '.jpg',
-		flipped: false,
-		matched: false
-	});
-}//for each tile.
-*/
-//console.log(tiles);
 
+
+//does all the operations needed to initialize the game. 
 function initialize() {
 	reTiles = 16;
 	rePairs = 8;
@@ -120,16 +107,19 @@ $(document).ready(function() {
 				var clickedImg = $(this);
 				var tile = clickedImg.data('tile');
 
+				//if the tile has not been flipped previously, push it onto the 'turn' tile. Does not include previously matcheed
+				//tiles, or the tile that has just been flipped. 
 				if (!tile.flipped) {
 					turnTile.push(tile);
 					saveImg.push(clickedImg);
 					flipTile(tile, clickedImg);
 				}
 
+				//the operations for a turn happen when 2 tiles are in the turn tile array
 				if (turnTile.length === 2) {
 					running = true;
 					console.log("two have been flipped!");
-							
+
 					if (turnTile[0].tileNum === turnTile[1].tileNum) {
 						streak++;
 						turnTile[0].matched = true;
@@ -139,9 +129,20 @@ $(document).ready(function() {
 						if (streak === 3) {
 							var tripleSound = document.getElementById('triple-sound');
 							tripleSound.play();
-							//var womboSound = document.getElementById('wombo-sound');
-							//womboSound.play();
 						}
+						if (streak === 5) {
+							var fiveSound = document.getElementById('6-sound');
+							fiveSound.play();
+						}
+						if (streak === 2) {
+							var twoSound = document.getElementById('number2-sound');
+							twoSound.play();
+						}
+						if (streak === 4) {
+							var fourSound = document.getElementById('number2-sound');
+							fourSound.play();
+						}
+
 						running = false;
 					} else {
 						streak = 0;
@@ -150,6 +151,9 @@ $(document).ready(function() {
 						attempts++;
 						console.log(saveImg[0]);
 						console.log(saveImg[1]);
+						
+						//for some completely unknown reason, javascript gives me an error if I try to pass turnTile[0] and the like
+						//directly as parameters to the function, hence why I made them variables. I imagine it's just a javascript quirk. 
 						var oldTile = turnTile[0];
 						var oldImg = saveImg[0];
 						var newTile = turnTile[1];
@@ -166,6 +170,8 @@ $(document).ready(function() {
 						turnTile.splice(0,1);
 						saveImg.splice(0,1);
 						saveImg.splice(0,1);
+
+						//winning condition
 						if (matches === 8) {
 							var womboSound = document.getElementById('wombo-sound');
 							womboSound.play();
@@ -192,9 +198,4 @@ function flipTile(tile, img) {
 		tile.flipped = !tile.flipped;
 		img.fadeIn(100);
 	});
-}
-
-function newFunction(tile1, img1, tile2, img2) {
-	flipTile(tile1, img1);
-	flipTile(tile2, img2);
 }
