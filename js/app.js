@@ -1,13 +1,3 @@
-//Images to include: Shrek, Gabe's beard, more gabe, mountain dew, mlg, doritos, mountain dew, fox shine.  
-//Sounds: If you miss, hitmarker.
-//come up with a back design. 
-//1) Get no scoped!
-//2) NUMBER TWOO!!!! 
-//3) Oh baby a triple! 
-//4) Kimmy j : QUAAAAD!
-//5) Was it 6? I would have cried if it was 6. 
-//6) Some crying one.
-
 
 //7) delete these later. 
 
@@ -126,6 +116,7 @@ $(document).ready(function() {
 						turnTile[1].matched = true;
 						matches++;
 						rePairs--;
+						/*
 						if (streak === 3) {
 							var tripleSound = document.getElementById('triple-sound');
 							tripleSound.play();
@@ -142,7 +133,7 @@ $(document).ready(function() {
 							var fourSound = document.getElementById('number2-sound');
 							fourSound.play();
 						}
-
+						*/
 						running = false;
 					} else {
 						streak = 0;
@@ -173,8 +164,8 @@ $(document).ready(function() {
 
 						//winning condition
 						if (matches === 8) {
-							var womboSound = document.getElementById('wombo-sound');
-							womboSound.play();
+							//var womboSound = document.getElementById('wombo-sound');
+							//womboSound.play();
 							alert('You won!!!11!2! asdfasdfaslkdfj0lkasjdflkajsdf');
 							
 						}
